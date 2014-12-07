@@ -1,4 +1,4 @@
-package gamess;
+package Jocurilee;
 
 import java.util.Scanner;
 
