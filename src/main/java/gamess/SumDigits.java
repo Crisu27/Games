@@ -1,4 +1,4 @@
-package gamess;
+package Jocurilee;
 
 import java.util.Scanner;
 
@@ -23,6 +23,8 @@ public class SumDigits
         }
         System.out.println(sir2 + " has " + count_digits + " digits ");
         int power = 1;
+
+        String[]character = new String[count_digits];
         for(count=1; count<=count_digits-1; count++)
         {
             power=power*10;
@@ -33,11 +35,19 @@ public class SumDigits
         while(power !=0)
         {
             sum = sum + work/power;
+            character[(count_digits-1)-(count-1)] = Integer.toString(work/power);
+            count --;
             work = work%power;
             power = power/10;
         }
+        System.out.print("The sum of digits = ");
+        for (int i=0; i<character.length; i++)
+        {
+            if (i!=character.length- 1)
+            System.out.print(character[i]+" + ");
 
-        System.out.println("The sum of digits = "+ sum);
+            else if(i==character.length-1)
+                System.out.print(character[i]+ " = " + sum);
+        }
     }
-
 }
