@@ -53,7 +53,7 @@ public class Board
                     see++;
                     if (see == 4) {
                         display(matrice);
-                        System.out.println("You win the game!");
+                        System.out.println("You won the game!");
                         break;
                     }
                 }
@@ -71,7 +71,7 @@ public class Board
                     if(see2==4)
                     {
                         display(matrice);
-                        System.out.println("You win the game");
+                        System.out.println("You won the game");
                         break;
                     }
                 }
