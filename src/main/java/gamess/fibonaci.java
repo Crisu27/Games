@@ -2,7 +2,7 @@ package gamess;
 
 import java.util.Scanner;
 
-public class fibonaci
+public class Fibonaci
 {
     public void fib()
     {

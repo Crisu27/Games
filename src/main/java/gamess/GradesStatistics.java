@@ -1,4 +1,4 @@
-package Jocurilee;
+package gamess;
 
 import java.util.Scanner;
 
@@ -9,7 +9,6 @@ public class GradesStatistics
         System.out.println("Enter the number of students");
         Scanner in = new Scanner(System.in);
         int num_Students = in.nextInt();
-        System.out.println("Number of students is: " + num_Students);
         int[] grades = new int[num_Students];
 
         int currentstudent = 0;

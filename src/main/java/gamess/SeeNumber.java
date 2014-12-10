@@ -25,7 +25,6 @@ public class SeeNumber
             w = 0;
             for (z =1 ; z <=y; z++)
             {
-
                 if (y%z == 0)
                 {
                     w++;
