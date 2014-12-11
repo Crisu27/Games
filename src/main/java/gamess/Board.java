@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Board
 {
     String[][]matrice = new String[8][8];
-    int see=0;
-    int see2=0;
+    int see=0; //verify if Player 1 wins - x
+    int see2=0; //verify if Player 2 wins - 0
 
     public void display(String[][]matrice)
     {
@@ -30,38 +30,79 @@ public class Board
                 if(player==1)
                 {
                     matrice[7 - row][choice - 1] = "  x ";
-                    win(matrice);
+                    //win_horizontal(matrice);
+                    win_vertical(matrice);
                     break;
                 }
                 else if(player==2)
                 {
                     matrice[7 - row][choice - 1] = "  0 ";
-                    win(matrice);
+                    //win_horizontal(matrice);
+                    win_vertical(matrice);
                     break;
                 }
             }
     }
 
-    public void win(String[][]matrice)
-    {
-        for(int row=0; row<8; row++)
 
-            for(int column=0; column<8; column++)
+    /*public void win_horizontal(String[][]matrice)
+    {
+        for (int row = 0; row < 8; row++)
+
+            for (int column = 0; column < 8; column++)
             {
-                if (matrice[row][column] == "  x ")
-                {
+                if (matrice[row][column] == "  x ") {
                     see++;
                     if (see == 4) {
                         display(matrice);
                         System.out.println("You won the game!");
                         break;
                     }
+                } else if (matrice[row][column] != "  x ")
+                    see = 0;
+            }
+
+        for (int row = 0; row < 8; row++)
+
+            for (int column = 0; column < 8; column++) {
+                if (matrice[row][column] == "  0 ") {
+                    see2++;
+                    if (see2 == 4) {
+                        display(matrice);
+                        System.out.println("You won the game!");
+                        break;
+                    }
+                } else if (matrice[row][column] != "  0 ")
+                    see2 = 0;
+
+            }
+        if ((see != 4) && (see2 != 4))
+            display(matrice);
+    }*/
+
+    public void win_vertical(String[][]matrice)
+    {
+        for(int column=0; column<8; column++)
+
+            for(int row=0; row<8; row++)
+            {
+                if (matrice[row][column] == "  x ")
+                {
+                    see++;
+                    System.out.println(see);
+                    if (see == 4)
+                    {
+                        display(matrice);
+                        System.out.println("You won the game!");
+                        break;
+                    }
+
                 }
                 else if (matrice[row][column] != "  x ")
                     see = 0;
             }
 
-        for(int row=0; row<8; row++)
+        /*for(int row=0; row<8; row++)
 
             for(int column=0; column<8; column++)
             {
@@ -71,14 +112,16 @@ public class Board
                     if(see2==4)
                     {
                         display(matrice);
-                        System.out.println("You won the game");
+                        System.out.println("You won the game!");
                         break;
                     }
                 }
                 else if(matrice[row][column]!="  0 ")
                     see2=0;
 
-            }
+            }*/
+        System.out.println(see);
+
         if((see!=4)&&(see2!=4))
             display(matrice);
     }
