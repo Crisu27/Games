@@ -25,26 +25,28 @@ public class Board
 
     public void complete(int choice, int player)
     {
-        String pl="[]";
+        boolean won=false;
+        String pl;
         for (int row = 0; row < 8; row++)
 
             if (matrice[7 - row][choice - 1] == " [] ")
             {
                 if(player==1)
                 {
-                    pl="x";
+                    pl="  x ";
                     matrice[7 - row][choice - 1] = "  x ";
-                    //win_horizontal(pl);
-                    //win_vertical(pl);
-                    win_downleft(matrice);
+                    //won=win_horizontal(pl);
+                    //won=win_vertical(pl);
+                    won=win_downleft(pl);
                     break;
                 }
                 else if(player==2)
                 {
-                    pl="0";
+                    pl="  0 ";
                     matrice[7 - row][choice - 1] = "  0 ";
                     //win_horizontal(pl);
                     //win_vertical(pl);
+                    won=win_downleft(pl);
                     break;
                 }
             }
@@ -57,33 +59,19 @@ public class Board
 
             for (int column = 0; column < 8; column++)
             {
-                if (matrice[row][column] == "  x ") {
+                if (matrice[row][column].equals(player))
+                {
                     see++;
-
-                    if (see == 4) {
+                    if (see == 4)
+                    {
                         display(matrice);
                         System.out.println("You won the game!");
                         break;
                     }
-                } else if (matrice[row][column] != "  x ")
+                } else if (matrice[row][column] != player)
                     see = 0;
             }
-
-        for (int row = 0; row < 8; row++)
-
-            for (int column = 0; column < 8; column++) {
-                if (matrice[row][column] == "  0 ") {
-                    see2++;
-                    if (see2 == 4) {
-                        display(matrice);
-                        System.out.println("You won the game!");
-                        break;
-                    }
-                } else if (matrice[row][column] != "  0 ")
-                    see2 = 0;
-
-            }
-        if ((see != 4) && (see2 != 4))
+        if (see != 4)
         {
             display(matrice);
             return false;
@@ -97,43 +85,22 @@ public class Board
 
             for(int row=0; row<8; row++)
             {
-                if (matrice[row][column] == "  x ")
+                if (matrice[row][column].equals(player))
                 {
                     see++;
-                    System.out.println(see);
+                    //System.out.println(see);
                     if (see == 4)
                     {
                         display(matrice);
                         System.out.println("You won the game!");
                         break;
                     }
-
                 }
-                else if ((matrice[row][column] != "  x ")&&(see!=4))
+                else if ((matrice[row][column] != player)&&(see!=4))
                     see = 0;
             }
 
-        for(int column=0; column<8; column++)
-
-            for(int row=0; row<8; row++)
-            {
-                if(matrice[row][column]=="  0 ")
-                {
-                    see2++;
-                    if(see2==4)
-                    {
-                        display(matrice);
-                        System.out.println("You won the game!");
-                        break;
-                    }
-                }
-                else if((matrice[row][column]!="  0 ")&&(see2!=4))
-                    see2=0;
-
-            }
-        System.out.println(see);
-
-        if((see!=4)&&(see2!=4))
+        if(see!=4)
         {
             display(matrice);
             return false;
@@ -143,56 +110,29 @@ public class Board
     }
 
 
-    public void win_downleft(String[][]matrice) {
+    public boolean win_downleft(String player)
+    {
+        int position=0;
         for (int row = 0; row < 8; row++) {
-            for (int column = 0; column < 8; column++) {
-                if (matrice[row][column] == "  x ") {
-                    //System.out.println("row " + (7 - row) + " column " + (7 - column));
-                    if (7 - row == 7 - column)
-                        see++;
-                }
-            }
-        }
-            System.out.println(see);
-            if (see == 4) {
-                System.out.println("You won the game!");
 
-            } else
-                see = 0;
-
-
-
-        for (int row = 0; row < 8; row++)
-        {
-            for (int column = 0; column < 8; column++)
-
-                if (matrice[row][column] == "  x ")
+            for (int column = 4; column < 8; column++) {
+                while (matrice[row + position][column - position].equals(player) && position < 4)
                 {
-                   // System.out.println("row " + (7 - row + 1) + " column " + (7 - column + 1));
-                    if (7 - row + 1 == 7 - column )
-                        see++;
+                    position++;
                 }
+
+
             }
-        System.out.println(see);
-        if (see == 4)
-        {
-            System.out.println("You won the game!");
-
-        } else
-            see = 0;
-
-
-
-
-        if ((see != 4) && (see2 != 4))
+            position=0;
+        }
+        if (position!=4)
         {
             display(matrice);
-        }
+            return false;
+
+        }else  return true;
+
     }
-
-
-
-
 
 
     public void tick()
