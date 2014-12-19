@@ -25,9 +25,11 @@ public class Board
 
     public int complete(int choice, int player)
     {
-        boolean won=false;
+        boolean wonh=false;
+        boolean wonv=false;
+        boolean wondl=false;
+        boolean wondr=false;
         String pl;
-        int ret=0;
         for (int row = 0; row < 8; row++)
 
             if (matrice[7 - row][choice - 1] == " [] ")
@@ -36,13 +38,14 @@ public class Board
                 {
                     pl="  x ";
                     matrice[7 - row][choice - 1] = "  x ";
-                    //won=win_horizontal(pl);
-                    //won=win_vertical(pl);
-                    //won=win_downleft(pl);
-                    won=win_downright(pl);
-                    if(won==true)
+                   wonh=win_horizontal(pl);
+                   wonv=win_vertical(pl);
+                   wondl=win_downleft(pl);
+                    wondr=win_downright(pl);
+                    display(matrice);
+                    if((wonh==true)||(wonv==true)||(wondl==true)||(wondr==true))
                     {
-                        ret=1;
+                        return player;
                     }
                         break;
 
@@ -51,50 +54,44 @@ public class Board
                 {
                     pl="  0 ";
                     matrice[7 - row][choice - 1] = "  0 ";
-                    //win_horizontal(pl);
-                    //win_vertical(pl);
-                    //won=win_downleft(pl);
-                    won=win_downright(pl);
-                    if(won==true)
+                    wonh=win_horizontal(pl);
+                    wonv=win_vertical(pl);
+                    wondl=win_downleft(pl);
+                    wondr=win_downright(pl);
+                    display(matrice);
+                    if((wonh==true)||(wonv==true)||(wondl==true)||(wondr==true))
                     {
-                        ret=1;
+                        return player;
                     }
                         break;
 
                 }
             }
-        if (ret==1)
-        {
-            return player;
-        }
-        else
-        {
-            return 0;
-        }
+        return 0;
     }
 
 
     public boolean win_horizontal(String player)
     {
-        for (int row = 0; row < 8; row++)
-
-            for (int column = 0; column < 8; column++)
-            {
-                if (matrice[row][column].equals(player))
-                {
+        for (int row = 0; row < 8; row++) {
+            for (int column = 0; column < 8; column++) {
+                if (matrice[row][column].equals(player)) {
                     see++;
-                    if (see == 4)
-                    {
-                        display(matrice);
+                     if (see == 4) {
+                        // display(matrice);
                         //System.out.println("You won the game!");
                         break;
                     }
                 } else if (!matrice[row][column].equals(player))
                     see = 0;
             }
+            if (see == 4) {
+                break;
+            }
+        }
         if (see != 4)
         {
-            display(matrice);
+            //display(matrice);
             return false;
         }
         else return true;
@@ -102,28 +99,27 @@ public class Board
 
     private boolean win_vertical(String player)
     {
-        for(int column=0; column<8; column++)
-
-            for(int row=0; row<8; row++)
-            {
-                if (matrice[row][column].equals(player))
-                {
+        for(int column=0; column<8; column++) {
+            for (int row = 0; row < 8; row++) {
+                if (matrice[row][column].equals(player)) {
                     see++;
                     //System.out.println(see);
-                    if (see == 4)
-                    {
-                        display(matrice);
+                    if (see == 4) {
+                        // display(matrice);
                         //System.out.println("You won the game!");
                         break;
                     }
-                }
-                else if ((matrice[row][column] != player)&&(see!=4))
+                } else if ((matrice[row][column] != player) && (see != 4))
                     see = 0;
             }
+            if (see == 4) {
+                break;
+            }
+        }
 
         if(see!=4)
         {
-            display(matrice);
+           // display(matrice);
             return false;
         }
         else return true;
@@ -146,7 +142,7 @@ public class Board
                     position++;
                     //System.out.println("row" + (row - position) + " column " + (column - position) + " " + position);
 
-                    if (column - position < 0)
+                    if ((column - position < 0)||(row-position<0))
                     {
                         break;
                     }
@@ -157,11 +153,15 @@ public class Board
                     break;
                 }
             }
+            if (position==4)
+            {
+                 break;
+            }
         }
 
         if(position!=4)
         {
-            display(matrice);
+            //display(matrice);
             return false;
         }
         else return true;
@@ -174,16 +174,16 @@ public class Board
 
         for (int row = 0; row < 8; row++)
         {
-            for (int column = 3; column < 8; column++)
+            for (int column = 0; column < 5; column++)
             {
                 position=0;
 
-                while (matrice[row - position][column - position].equals(player) && position < 4)
+                while (matrice[row-position][column + position].equals(player) && position < 4)
                 {
                     position++;
-                    //System.out.println("row" + (row - position) + " column " + (column - position) + " " + position);
+                  //  System.out.println("row" + (row-position) + " column " + (column + position) + " " + position);
 
-                    if (column - position < 0)
+                    if ((column + position >7)||(row-position<0))
                     {
                         break;
                     }
@@ -191,14 +191,19 @@ public class Board
                 if (position==4)
                 {
                     //System.out.println("You won the game!");
+                   // display(matrice);
                     break;
                 }
+            }
+            if (position==4)
+            {
+                break;
             }
         }
 
         if(position!=4)
         {
-            display(matrice);
+            //display(matrice);
             return false;
         }
         else return true;
@@ -219,6 +224,8 @@ public class Board
         int choice = 0;// players` option
         int player = 0;
         int fin = 0;
+        String setBold = "\033[1m";
+
 
         while((see!=4)&&(see2!=4))
         {
@@ -230,7 +237,7 @@ public class Board
                 player=1;
                 fin = complete(choice, player);
                 if(fin!=0)
-                {
+                {  System.out.println(setBold);
                     System.out.print(" Player " + fin + " won the game!");
                     break;
                 }
@@ -242,11 +249,19 @@ public class Board
                 player=2;
                 fin = complete(choice, player);
                 if(fin!=0)
-                {
+                {  System.out.println(setBold);
                     System.out.print(" Player " + fin + " won the game!");
                     break;
                 }
+                /*
+                String setBold = "\033[1mThis keeps it bold.";
+                System.out.println(setBold);
+                String boldGrayLine = "\033[1mThis is a BOLD line\033[0m";
+                System.out.println(boldGrayLine);*/
+
             }
         }
     }
+
+
 }
