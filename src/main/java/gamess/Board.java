@@ -1,4 +1,4 @@
-package gamess;
+package Jocurilee;
 
 import java.util.Scanner;
 
@@ -65,7 +65,7 @@ public class Board
 
         return 0;
     }
-    
+
 
       /*  String pl;
            for (int row = 0; row < 8; row++)
