@@ -119,8 +119,12 @@ public class Joculete
         }
         else if(x==13)
         {
-            Board brd = new Board();
-            brd.tick();
+            /*Board brd = new Board();
+            brd.tick();*/
+            new Thread(){
+                public void run() {
+                    BoardGUI.main(new String[]{});}
+                }.start();
         }
     }
 }
