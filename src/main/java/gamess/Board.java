@@ -1,5 +1,6 @@
-package Jocurilee;
+package gamess;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Board
@@ -7,6 +8,7 @@ public class Board
     String[][]matrice = new String[8][8];
     int see=0; //verify if Player 1 wins - x
     int see2=0; //verify if Player 2 wins - 0
+    private JPanel panel1;
 
     public void display(String[][]matrice)
     {

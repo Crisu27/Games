@@ -1,4 +1,4 @@
-package Jocurilee;
+package gamess;
 
 import javax.swing.*;
 import java.awt.*;
