@@ -16,6 +16,9 @@ public class BoardGUI extends JFrame
     private JButton newgame;
     final JLabel[][] label = new JLabel[8][8];
     Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+
+    int move=0;
+
     public  BoardGUI() throws HeadlessException
     {
         Board.setSize(400, 400);
@@ -75,7 +78,27 @@ public class BoardGUI extends JFrame
 
             }
         });
+
+
+
         OKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int player=0;
+               int choice = Integer.parseInt(playerSelectYourColumnTextField.getText());
+                move++;
+                if (move%2==0)  player=1;
+                else if (move%2!=0) player =2;
+
+                Board j = new Board();
+
+                j.complete(choice,player);
+
+
+            }
+        });
+
+    /*    OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -115,10 +138,10 @@ public class BoardGUI extends JFrame
                     }else  start(move);
 
                 }
-                  playerSelectYourColumnTextField.setText(null);
+                  playerSelectYourColumnTextField.setText(null)
             }
         });
-
+*/
 
         panel1.addComponentListener(new ComponentAdapter() {
         });
@@ -134,6 +157,10 @@ public class BoardGUI extends JFrame
             }
         });
     }
+
+
+
+    /*
     int see=0;
     int see2=0;
     int move = 0;// check the turn of the players
@@ -335,7 +362,7 @@ public class BoardGUI extends JFrame
         }
         else return true;
 
-    }
+    }*/
 
     public static void main(String[] args)
     {
