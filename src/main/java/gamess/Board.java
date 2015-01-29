@@ -4,11 +4,15 @@ import javax.swing.*;
 import java.util.Scanner;
 
 public class Board {
+
     String[][] matrice = new String[8][8];
+
+    int setat = 0;
+
     int see = 0; //verify if Player 1 wins - x
     int see2 = 0; //verify if Player 2 wins - 0
     private JPanel panel1;
-
+/*
     public void display(String[][] matrice) {
         System.out.println("  1   2   3   4   5   6   7   8");
         for (int row = 0; row < 8; row++) {
@@ -20,55 +24,75 @@ public class Board {
             System.out.println();
         }
     }
+*/
 
-    public int complete(int choice, int player) {
+    public int complete(int choice, int player, BoardGUI boardGUI) {
         boolean wonh = false;
         boolean wonv = false;
         boolean wondl = false;
         boolean wondr = false;
-        String pl = "";
-
-        BoardGUI b = new BoardGUI();
-        for (int row = 0; row < 8; row++)
-
-           if (matrice[7 - row][choice - 1] == " [] ")
 
 
+        setat++;
+        if (setat ==1)
         {
-            JOptionPane.showMessageDialog(null,",,,,,,,,,,,,,,,");
-                switch (player) {
-                    case 1:
-                        pl = "  x ";
-                         matrice[7 - row][choice - 1] = "  x ";
-                       wonh = win_horizontal(pl);
-                       wonv = win_vertical(pl);
-                        wondl = win_downleft(pl);
-                      wondr = win_downright(pl);
-                      display(matrice);
-                       if ((wonh == true) || (wonv == true) || (wondl == true) || (wondr == true)) {
-                           return player;
-                      }
-
-                        break;
-                    case 2:
-                        pl = "  o ";
-                        matrice[7 - row][choice - 1] = "  o ";
-                        wonh = win_horizontal(pl);
-                       wonv = win_vertical(pl);
-                        wondl = win_downleft(pl);
-                        wondr = win_downright(pl);
-                       display(matrice);
-                        if ((wonh == true) || (wonv == true) || (wondl == true) || (wondr == true)) {
-                           return player;
-                      }
-
-                        break;
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    matrice[i][j] = " [] ";
                 }
-                break;
             }
 
-        return 0;
-    }
+        }
+
+
+
+            String pl = "";
+
+            for (int row = 0; row < 8; row++) {
+                if (matrice[row][choice-1] == " [] ") {
+                    switch (player) {
+                        case 1:
+                            pl = "  x ";
+                            matrice[row][choice-1] = "  x ";
+                            wonh = win_horizontal(pl);
+                            wonv = win_vertical(pl);
+                            wondl = win_downleft(pl);
+                            wondr = win_downright(pl);
+                            // display(matrice);
+                            boardGUI.colorCell(row, choice-1, pl);
+                            if ((wonh == true) || (wonv == true) || (wondl == true) || (wondr == true)) {
+                               setat=0;
+                                return player;
+
+                            }
+
+                            break;
+                        case 2:
+                            pl = "  o ";
+                            matrice[row][choice-1] = "  o ";
+                            wonh = win_horizontal(pl);
+                            wonv = win_vertical(pl);
+                            wondl = win_downleft(pl);
+                            wondr = win_downright(pl);
+                            //  display(matrice);
+                            boardGUI.colorCell(row, choice-1, pl);
+                            if ((wonh == true) || (wonv == true) || (wondl == true) || (wondr == true)) {
+                                setat =0;
+                                return player;
+                            }
+
+                            break;
+                    }
+
+                    break;
+                }
+            }
+
+            return 0;
+        }
+
+
+
 
 
       /*  String pl;
@@ -230,8 +254,11 @@ public class Board {
 
 
     public void tick() {
+
+
         new Thread() {
             public void run() {
+
                 BoardGUI.main(new String[]{});
             }
         }.start();
