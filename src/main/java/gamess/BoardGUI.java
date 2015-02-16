@@ -16,10 +16,6 @@ public class BoardGUI extends JFrame
     private JButton newgame;
     final JLabel[][] label = new JLabel[8][8];
     Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-    Board j = new Board();
-
-    int move=0;
-
     public  BoardGUI() throws HeadlessException
     {
         Board.setSize(400, 400);
@@ -79,49 +75,7 @@ public class BoardGUI extends JFrame
 
             }
         });
-
-
-
-        final BoardGUI self = this;
         OKButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int player=0;
-                int winner = 0;
-
-                int choice = Integer.parseInt(playerSelectYourColumnTextField.getText());
-                move++;
-                if (move%2==0)
-
-                {
-                    lbl.setText("Player 1 choose the column!");
-                    player = 2;
-                }
-
-
-                else if (move%2!=0)
-                {
-                    lbl.setText("Player 2 choose the column!");
-                    player =1;
-                }
-
-                winner =j.complete(choice,player,self);
-
-                if (winner!=0) {
-                    JOptionPane.showMessageDialog(null, "Player " + player + " won the game", "WINNNER", JOptionPane.WARNING_MESSAGE);
-                    OKButton.setVisible(false);
-                    playerSelectYourColumnTextField.setVisible(false);
-                    lbl.setText("Player " + player + " won the game");
-                    newgame.setVisible(true);
-                    move=0;
-
-                  }
-
-
-            }
-        });
-
-    /*    OKButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -161,10 +115,10 @@ public class BoardGUI extends JFrame
                     }else  start(move);
 
                 }
-                  playerSelectYourColumnTextField.setText(null)
+                  playerSelectYourColumnTextField.setText(null);
             }
         });
-*/
+
 
         panel1.addComponentListener(new ComponentAdapter() {
         });
@@ -180,10 +134,6 @@ public class BoardGUI extends JFrame
             }
         });
     }
-
-
-
-    /*
     int see=0;
     int see2=0;
     int move = 0;// check the turn of the players
@@ -385,30 +335,7 @@ public class BoardGUI extends JFrame
         }
         else return true;
 
-    }*/
-
-
-
-    public void colorCell(int row, int column, String player) {
-
-        if ( player == "  x ") {
-
-            label[row][column].setForeground(Color.ORANGE);
-            label[row][column].setText("  x ");
-            label[row][column].setBackground(Color.ORANGE);
-            label[row][column].setOpaque(true);
-        }
-        else if (player =="  o "){
-            label[row][column].setForeground(Color.PINK);
-            label[row][column].setText("  o ");
-            label[ row][column].setBackground(Color.PINK);
-            label[row][column].setOpaque(true);
-        }
-
     }
-
-
-
 
     public static void main(String[] args)
     {
